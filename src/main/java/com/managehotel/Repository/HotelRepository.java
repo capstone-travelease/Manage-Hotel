@@ -69,7 +69,7 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
     @Modifying
     @Query(value = "INSERT INTO public.hotel_attachment(\n" +
             "\tattachment_id, hotel_id)\n" +
-            "\tVALUES (?2, ?1);")
+            "\tVALUES (?2, ?1);",nativeQuery = true)
     void addHotelImage(Integer hotelId, Integer attachmentId);
 
     @Transactional
