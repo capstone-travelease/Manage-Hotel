@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  login:
+    container_name: manage-hotel-partner
+    image: ngoctienwork2002/manage-hotel-partner
+    ports:
+      - '1503:1503'
+    volumes:
+      - ./:/server
+      - /var/www/html/hotel_images/:/hotel_images
+    restart: always
