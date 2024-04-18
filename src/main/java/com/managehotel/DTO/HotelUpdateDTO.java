@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.sql.Time;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -43,9 +44,9 @@ public class HotelUpdateDTO {
     private String hotelDescription;
 
     @NotNull
-    private LocalTime checkInTime;
+    private String checkInTime;
     @NotNull
-    private LocalTime checkOutTime;
+    private String checkOutTime;
 
     @NotNull
     @NotEmpty

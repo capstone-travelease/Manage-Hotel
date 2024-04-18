@@ -42,10 +42,10 @@ public class HotelRequestDTO {
      private String hotelDescription;
 
      @NotNull
-     private LocalTime checkInTime;
+     private String checkInTime;
 
      @NotNull
-     private LocalTime checkOutTime;
+     private String checkOutTime;
 
      @NotNull
      @NotBlank

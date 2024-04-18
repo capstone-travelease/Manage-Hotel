@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
+import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +51,7 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
     @Query(value = "INSERT INTO public.hotels(\n" +
             "hotel_name, hotel_address, hotel_city, hotel_country, hotel_contact_number, hotel_email, hotel_description, check_in_time, approve_status, check_out_time, owner_id)\n" +
             "VALUES ( ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11) RETURNING hotel_id",nativeQuery = true)
-    Integer insertHotel(String hotelName, String hotelAddress,String hotelCity ,String hotelCountry, String hotelContactNumber, String hotelEmail, String hotelDescription, LocalTime checkInTime,  Integer status, LocalTime checkOutTime, Integer userId);
+    Integer insertHotel(String hotelName, String hotelAddress,String hotelCity ,String hotelCountry, String hotelContactNumber, String hotelEmail, String hotelDescription, String checkInTime,  Integer status, String checkOutTime, Integer userId);
 
     @Transactional
     @Modifying
@@ -63,8 +64,8 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
     @Modifying
     @Query(value = "UPDATE public.hotels\n" +
             "\tSET hotel_name=?2, hotel_address=?3, hotel_city=?4, hotel_country=?5, hotel_contact_number=?6, hotel_email=?7, hotel_description=?8, check_in_time=?9, check_out_time=?10\n" +
-            "\tWHERE hotel_id = ?1;",nativeQuery = true)
-    void  updateHotel(Integer hotelId, String hotelName, String hotelAddress, String hotelCity, String hotelCountry, String hotelPhone, String hotelEmail, String hotelDescription, LocalTime checkInTime, LocalTime checkOutTime);
+            "\tWHERE hotel_id = ?1",nativeQuery = true)
+    void  updateHotel(Integer hotelId, String hotelName, String hotelAddress, String hotelCity, String hotelCountry, String hotelPhone, String hotelEmail, String hotelDescription, String checkInTime, String checkOutTime);
 
 
     @Transactional

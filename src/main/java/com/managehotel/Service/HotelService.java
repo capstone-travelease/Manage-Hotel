@@ -47,9 +47,11 @@ public class HotelService {
 
 
     public Integer updateHotel(HotelUpdateDTO hotel, Integer hotelId){
+        System.out.println(hotelId);
         try {
             hotelRepository.updateHotel(
-                    hotelId,hotel.getHotelName(),
+                    hotelId,
+                    hotel.getHotelName(),
                     hotel.getHotelAddress(),
                     hotel.getHotelCity(),
                     hotel.getHotelCounty(),
@@ -59,14 +61,14 @@ public class HotelService {
                     hotel.getCheckInTime(),
                     hotel.getCheckOutTime()
             );
-            hotelRepository.removeFacilities(hotelId);
-            boolean checkIsErrorUpdateFacility = addHotelFacilities(hotel.getFacilities(),hotelId);
-            if(!checkIsErrorUpdateFacility){
-                return 500;
-            }
+//            hotelRepository.removeFacilities(hotelId);
+//            boolean checkIsErrorUpdateFacility = addHotelFacilities(hotel.getFacilities(),hotelId);
+//            if(!checkIsErrorUpdateFacility){
+//                return 500;
+//            }
             return 200;
         }catch (Exception ex){
-            System.err.println(ex);
+            System.out.println(ex);
             return 500;
         }
     }
