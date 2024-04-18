@@ -55,6 +55,10 @@ public class HotelController {
         return new ResponeDTO(200,null,"OK");
     }
 
+//    @PutMapping("/hotels/image/{id}")
+//    public ResponeDTO updateHotelImage(@RequestParam("image") List<MultipartFile> image,@PathVariable("id") Integer hotelId){
+//
+//    }
 
     @PutMapping("/hotels")
     public ResponeDTO updateHotel(@RequestParam("hotelId") Integer hotelId, @RequestBody @Valid HotelUpdateDTO hotel ,HttpServletResponse response){

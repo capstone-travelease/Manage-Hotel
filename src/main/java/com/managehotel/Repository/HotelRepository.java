@@ -88,6 +88,8 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
     Integer insertImage(Date uploadAt, String fileUrl);
 
 
+
+
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO public.hotel_attachment(\n" +

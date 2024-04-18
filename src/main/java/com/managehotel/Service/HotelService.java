@@ -61,11 +61,11 @@ public class HotelService {
                     hotel.getCheckInTime(),
                     hotel.getCheckOutTime()
             );
-//            hotelRepository.removeFacilities(hotelId);
-//            boolean checkIsErrorUpdateFacility = addHotelFacilities(hotel.getFacilities(),hotelId);
-//            if(!checkIsErrorUpdateFacility){
-//                return 500;
-//            }
+            hotelRepository.removeFacilities(hotelId);
+            boolean checkIsErrorUpdateFacility = addHotelFacilities(hotel.getFacilities(),hotelId);
+            if(!checkIsErrorUpdateFacility){
+                return 500;
+            }
             return 200;
         }catch (Exception ex){
             System.out.println(ex);
