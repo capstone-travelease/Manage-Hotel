@@ -1,10 +1,9 @@
 package com.managehotel.Service;
 
 
-import com.managehotel.DTO.HotelRequestDTO;
-import com.managehotel.DTO.ListFacilitiesDTO;
+import com.managehotel.DTO.*;
+import com.managehotel.Entity.Hotels;
 import com.managehotel.Repository.HotelRepository;
-import com.managehotel.DTO.ListHotelDTO;
 import com.managehotel.Utils.SortData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +28,14 @@ public class HotelService {
         this.sortData = sortData;
     }
 
+    public DetailHotelDTO getdetailedHotel(Integer hotelId){
+        DetailHotelDTO hotelData = hotelRepository.getDetailedHotel(hotelId);
+        List<String> hotelImage = hotelRepository.getUrlPath(hotelId);
+        List<Integer> hotelFacilites = hotelRepository.listHotelFacilites(hotelId);
+        hotelData.setHotelImage(hotelImage);
+        hotelData.setHotelFacility(hotelFacilites);
+        return hotelData;
+    }
     public List<ListHotelDTO> getListHotel(Integer userId){
           List<ListHotelDTO> hotelData = hotelRepository.getListHotel(userId);
           for (ListHotelDTO i : hotelData){
@@ -38,6 +45,31 @@ public class HotelService {
           return hotelData;
     }
 
+
+    public Integer updateHotel(HotelUpdateDTO hotel, Integer hotelId){
+        try {
+            hotelRepository.updateHotel(
+                    hotelId,hotel.getHotelName(),
+                    hotel.getHotelAddress(),
+                    hotel.getHotelCity(),
+                    hotel.getHotelCounty(),
+                    hotel.getHotelContactNumber(),
+                    hotel.getHotelEmail(),
+                    hotel.getHotelDescription(),
+                    hotel.getCheckInTime(),
+                    hotel.getCheckOutTime()
+            );
+            hotelRepository.removeFacilities(hotelId);
+            boolean checkIsErrorUpdateFacility = addHotelFacilities(hotel.getFacilities(),hotelId);
+            if(!checkIsErrorUpdateFacility){
+                return 500;
+            }
+            return 200;
+        }catch (Exception ex){
+            System.err.println(ex);
+            return 500;
+        }
+    }
     public List<Object> getListFacilties(){
         List<ListFacilitiesDTO> facilityData = hotelRepository.getListFacilities();
         List<Object> storedData =  sortData.dataSort(facilityData);
@@ -83,7 +115,7 @@ public class HotelService {
     private boolean addHotelFacilities(List<Integer> facilitiesId, Integer newHotelId){
         try {
            for(Integer i : facilitiesId){
-                hotelRepository.insertHotelFacilities(newHotelId,i);
+                   hotelRepository.insertHotelFacilities(newHotelId, i);
            }
            return true;
         } catch (Exception exception){

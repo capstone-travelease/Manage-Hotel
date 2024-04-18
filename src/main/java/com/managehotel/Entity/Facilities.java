@@ -11,13 +11,13 @@ public class Facilities {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer facility_id;
     private String facility_name;
-    private String facility_type;
+    private Integer facility_type;
     private String facility_image;
 
     public Facilities() {
     }
 
-    public Facilities(Integer facility_id, String facility_name, String facility_type, String facility_image) {
+    public Facilities(Integer facility_id, String facility_name, Integer facility_type, String facility_image) {
         this.facility_id = facility_id;
         this.facility_name = facility_name;
         this.facility_type = facility_type;
@@ -40,11 +40,11 @@ public class Facilities {
         this.facility_name = facility_name;
     }
 
-    public String getFacility_type() {
+    public Integer getFacility_type() {
         return facility_type;
     }
 
-    public void setFacility_type(String facility_type) {
+    public void setFacility_type(Integer facility_type) {
         this.facility_type = facility_type;
     }
 

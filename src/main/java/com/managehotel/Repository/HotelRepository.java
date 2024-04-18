@@ -1,6 +1,6 @@
 package com.managehotel.Repository;
 
-import com.managehotel.DTO.HotelRequestDTO;
+import com.managehotel.DTO.DetailHotelDTO;
 import com.managehotel.DTO.ListFacilitiesDTO;
 import com.managehotel.DTO.ListHotelDTO;
 import com.managehotel.Entity.Hotels;
@@ -25,6 +25,9 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
             "WHERE u.user_id = ?1")
     List<ListHotelDTO> getListHotel(Integer userId);
 
+    @Query("Select new com.managehotel.DTO.DetailHotelDTO(h.hotel_id, h.hotel_name, h.hotel_address, h.hotel_city, h.hotel_country, h.hotel_contact_number, \n" +
+            "\th.hotel_description, h.hotel_email, h.check_in_time, h.check_out_time) from Hotels h Where h.hotel_id = ?1")
+    DetailHotelDTO getDetailedHotel(Integer hotelId);
 
     @Query("SELECT a.file_url\n" +
             "\tFROM Hotels h\n" +
@@ -34,7 +37,12 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
     List<String> getUrlPath(Integer hotelId);
 
 
-    @Query("SELECT new com.managehotel.DTO.ListFacilitiesDTO(f.facility_id,f.facility_name,f.facility_type,f.facility_image) FROM Facilities f\n" +
+    @Query("select hf.id_facility from HotelFacilities hf\n" +
+            "where hf.id_hotel = ?1")
+    List<Integer> listHotelFacilites(Integer hotelId);
+
+    @Query("SELECT new com.managehotel.DTO.ListFacilitiesDTO(f.facility_id,f.facility_name,ft.facility_type_name,f.facility_image) FROM Facilities f\n" +
+            "inner join FacilityType ft on ft.facility_type_id = f.facility_type\n" +
             "ORDER BY f.facility_id ASC ")
     List<ListFacilitiesDTO> getListFacilities();
 
@@ -43,6 +51,20 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
             "hotel_name, hotel_address, hotel_city, hotel_country, hotel_contact_number, hotel_email, hotel_description, check_in_time, approve_status, check_out_time, owner_id)\n" +
             "VALUES ( ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11) RETURNING hotel_id",nativeQuery = true)
     Integer insertHotel(String hotelName, String hotelAddress,String hotelCity ,String hotelCountry, String hotelContactNumber, String hotelEmail, String hotelDescription, LocalTime checkInTime,  Integer status, LocalTime checkOutTime, Integer userId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM public.hotel_facilities hf\n" +
+            "\tWHERE hf.id_hotel = ?1;",nativeQuery = true)
+    void removeFacilities(Integer hotelId);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE public.hotels\n" +
+            "\tSET hotel_name=?2, hotel_address=?3, hotel_city=?4, hotel_country=?5, hotel_contact_number=?6, hotel_email=?7, hotel_description=?8, check_in_time=?9, check_out_time=?10\n" +
+            "\tWHERE hotel_id = ?1;",nativeQuery = true)
+    void  updateHotel(Integer hotelId, String hotelName, String hotelAddress, String hotelCity, String hotelCountry, String hotelPhone, String hotelEmail, String hotelDescription, LocalTime checkInTime, LocalTime checkOutTime);
 
 
     @Transactional

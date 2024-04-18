@@ -29,6 +29,11 @@ public class HotelController {
         return new ResponeHotelDTO(response.getStatus(),hotelService.getListHotel(userId),"OK");
     }
 
+
+    @GetMapping("/hotels/detail")
+    public ResponeDetailedHotelDTO getDetailedHotels(@RequestParam("hotelId") Integer hotelId,HttpServletResponse response){
+        return new ResponeDetailedHotelDTO(response.getStatus(),hotelService.getdetailedHotel(hotelId),"OK");
+    }
     @GetMapping("/facilites")
     public ResponeFacilitiesDTO listFacilities(HttpServletResponse response){
         return new ResponeFacilitiesDTO(response.getStatus(),hotelService.getListFacilties(),"OK");
@@ -49,6 +54,18 @@ public class HotelController {
         boolean ischeckError = hotelService.uploadImageToFile(image,hotelId);
         return new ResponeDTO(200,null,"OK");
     }
+
+
+    @PutMapping("/hotels")
+    public ResponeDTO updateHotel(@RequestParam("hotelId") Integer hotelId, @RequestBody @Valid HotelUpdateDTO hotel ,HttpServletResponse response){
+        Integer httpCode = hotelService.updateHotel(hotel, hotelId);
+        if(httpCode == HttpServletResponse.SC_INTERNAL_SERVER_ERROR){
+            response.setStatus(httpCode);
+            return new ResponeDTO(response.getStatus(),null,"Internal Server Error");
+        }
+        return new ResponeDTO(response.getStatus(),null,"OK");
+    }
+
 
     @DeleteMapping("/hotels")
     public ResponeDTO disableHotel(@RequestBody @Valid DisableHotelDTO hotel){
