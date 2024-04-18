@@ -87,8 +87,15 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
             "\tVALUES (?1, ?2) returning attachment_id",nativeQuery = true)
     Integer insertImage(Date uploadAt, String fileUrl);
 
+    @Query(value = "DELETE FROM public.hotel_attachment\n" +
+            "\tWHERE hotel_id = ?1 returning attachment_id",nativeQuery = true)
+    Integer removeHotelAttacment(Integer hotelId);
 
-
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM public.attachment\n" +
+            "\tWHERE attachment_id = ?1",nativeQuery = true)
+    void removeAttacment(Integer attachmentId);
 
     @Transactional
     @Modifying

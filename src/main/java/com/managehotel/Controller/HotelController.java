@@ -44,7 +44,7 @@ public class HotelController {
         Integer codeStatus = hotelService.addNewHotel(hotels);
         if (codeStatus == 500){
             response.setStatus(codeStatus);
-            return new ResponeDTO(codeStatus,null,"");
+            return new ResponeDTO(codeStatus,null,"Internal Server Error");
         }
         return new ResponeDTO(200,codeStatus,"OK");
     }
@@ -55,10 +55,14 @@ public class HotelController {
         return new ResponeDTO(200,null,"OK");
     }
 
-//    @PutMapping("/hotels/image/{id}")
-//    public ResponeDTO updateHotelImage(@RequestParam("image") List<MultipartFile> image,@PathVariable("id") Integer hotelId){
-//
-//    }
+    @PutMapping("/hotels/image/{id}")
+    public ResponeDTO updateHotelImage(@RequestParam("image") List<MultipartFile> image,@PathVariable("id") Integer hotelId){
+        Integer isCheckError = hotelService.updateHotelImage(image,hotelId);
+        if(isCheckError == HttpServletResponse.SC_INTERNAL_SERVER_ERROR){
+            return new ResponeDTO(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null, "Internal Server Error");
+        }
+        return new ResponeDTO(HttpServletResponse.SC_OK,null,"OK");
+    }
 
     @PutMapping("/hotels")
     public ResponeDTO updateHotel(@RequestParam("hotelId") Integer hotelId, @RequestBody @Valid HotelUpdateDTO hotel ,HttpServletResponse response){

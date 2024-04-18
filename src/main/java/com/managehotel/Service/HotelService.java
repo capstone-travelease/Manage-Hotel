@@ -45,6 +45,18 @@ public class HotelService {
           return hotelData;
     }
 
+    public Integer updateHotelImage(List<MultipartFile> image, Integer hotelId){
+        try {
+            Integer attachmentId = hotelRepository.removeHotelAttacment(hotelId);
+            hotelRepository.removeAttacment(attachmentId);
+            uploadImageToFile(image,hotelId);
+            return 200;
+        }catch (Exception ex){
+            System.err.println(ex);
+            return 500;
+        }
+
+    }
 
     public Integer updateHotel(HotelUpdateDTO hotel, Integer hotelId){
         System.out.println(hotelId);
