@@ -21,7 +21,7 @@ public class HotelService {
     private final SortData sortData;
 
     // folder path
-    private final String FOLDER_PATH = "/images/";
+    private final String FOLDER_PATH = "/hotel_images/";
     @Autowired
     public HotelService(HotelRepository hotelRepository, SortData sortData) {
         this.hotelRepository = hotelRepository;
@@ -52,7 +52,7 @@ public class HotelService {
             uploadImageToFile(image,hotelId);
             return 200;
         }catch (Exception ex){
-            System.err.println(ex);
+
             return 500;
         }
 

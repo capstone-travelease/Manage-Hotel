@@ -19,6 +19,8 @@ public class HotelController {
 
     private final HotelService hotelService;
 
+    private static final String errorMessage = "Internal Server Error";
+
     @Autowired
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
@@ -44,14 +46,14 @@ public class HotelController {
         Integer codeStatus = hotelService.addNewHotel(hotels);
         if (codeStatus == 500){
             response.setStatus(codeStatus);
-            return new ResponeDTO(codeStatus,null,"Internal Server Error");
+            return new ResponeDTO(codeStatus,null,errorMessage);
         }
         return new ResponeDTO(200,codeStatus,"OK");
     }
 
     @PostMapping("/hotels/image")
     public ResponeDTO uploadHotelImages(@RequestParam("image") List<MultipartFile> image,@RequestParam("hotelId") Integer hotelId,HttpServletResponse response) throws IOException {
-        boolean ischeckError = hotelService.uploadImageToFile(image,hotelId);
+        hotelService.uploadImageToFile(image,hotelId);
         return new ResponeDTO(200,null,"OK");
     }
 
@@ -59,7 +61,7 @@ public class HotelController {
     public ResponeDTO updateHotelImage(@RequestParam("image") List<MultipartFile> image,@PathVariable("id") Integer hotelId){
         Integer isCheckError = hotelService.updateHotelImage(image,hotelId);
         if(isCheckError == HttpServletResponse.SC_INTERNAL_SERVER_ERROR){
-            return new ResponeDTO(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null, "Internal Server Error");
+            return new ResponeDTO(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null, errorMessage);
         }
         return new ResponeDTO(HttpServletResponse.SC_OK,null,"OK");
     }
@@ -69,7 +71,7 @@ public class HotelController {
         Integer httpCode = hotelService.updateHotel(hotel, hotelId);
         if(httpCode == HttpServletResponse.SC_INTERNAL_SERVER_ERROR){
             response.setStatus(httpCode);
-            return new ResponeDTO(response.getStatus(),null,"Internal Server Error");
+            return new ResponeDTO(response.getStatus(),null,errorMessage);
         }
         return new ResponeDTO(response.getStatus(),null,"OK");
     }
@@ -77,7 +79,7 @@ public class HotelController {
 
     @DeleteMapping("/hotels")
     public ResponeDTO disableHotel(@RequestBody @Valid DisableHotelDTO hotel){
-        boolean isCheckError = hotelService.disableHotel(hotel.getHotelId(),hotel.getStatus());
+        hotelService.disableHotel(hotel.getHotelId(),hotel.getStatus());
         return new ResponeDTO(200,null,"OK");
     }
 }
