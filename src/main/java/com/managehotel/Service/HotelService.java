@@ -29,12 +29,18 @@ public class HotelService {
     }
 
     public DetailHotelDTO getdetailedHotel(Integer hotelId){
-        DetailHotelDTO hotelData = hotelRepository.getDetailedHotel(hotelId);
-        List<String> hotelImage = hotelRepository.getUrlPath(hotelId);
-        List<Integer> hotelFacilites = hotelRepository.listHotelFacilites(hotelId);
-        hotelData.setHotelImage(hotelImage);
-        hotelData.setHotelFacility(hotelFacilites);
-        return hotelData;
+        try {
+            DetailHotelDTO hotelData = hotelRepository.getDetailedHotel(hotelId);
+            List<String> hotelImage = hotelRepository.getUrlPath(hotelId);
+            List<Integer> hotelFacilites = hotelRepository.listHotelFacilites(hotelId);
+            hotelData.setHotelImage(hotelImage);
+            hotelData.setHotelFacility(hotelFacilites);
+            return hotelData;
+        }catch (Exception exception){
+            System.err.println(exception);
+            return null;
+        }
+
     }
     public List<ListHotelDTO> getListHotel(Integer userId){
           List<ListHotelDTO> hotelData = hotelRepository.getListHotel(userId);

@@ -17,8 +17,8 @@ public class DetailHotelDTO {
     private String hotelNumber;
     private String hotelDescription;
     private String hotelEmail;
-    private LocalTime hotelCheckIn;
-    private LocalTime hotelCheckOut;
+    private String hotelCheckIn;
+    private String hotelCheckOut;
     private List<String> hotelImage;
 
     public List<String> getHotelImage() {
@@ -39,7 +39,7 @@ public class DetailHotelDTO {
 
     private List<Integer> hotelFacility;
 
-    public DetailHotelDTO(Integer hotelId, String hotelName, String hotelAddress, String hotelCity, String hotelCountry, String hotelNumber, String hotelDescription, String hotelEmail, LocalTime hotelCheckIn, LocalTime hotelCheckOut) {
+    public DetailHotelDTO(Integer hotelId, String hotelName, String hotelAddress, String hotelCity, String hotelCountry, String hotelNumber, String hotelDescription, String hotelEmail, String hotelCheckIn, String hotelCheckOut) {
         this.hotelId = hotelId;
         this.hotelName = hotelName;
         this.hotelAddress = hotelAddress;
@@ -132,19 +132,19 @@ public class DetailHotelDTO {
         this.hotelEmail = hotelEmail;
     }
 
-    public LocalTime getHotelCheckIn() {
+    public String getHotelCheckIn() {
         return hotelCheckIn;
     }
 
-    public void setHotelCheckIn(LocalTime hotelCheckIn) {
+    public void setHotelCheckIn(String hotelCheckIn) {
         this.hotelCheckIn = hotelCheckIn;
     }
 
-    public LocalTime getHotelCheckOut() {
+    public String getHotelCheckOut() {
         return hotelCheckOut;
     }
 
-    public void setHotelCheckOut(LocalTime hotelCheckOut) {
+    public void setHotelCheckOut(String hotelCheckOut) {
         this.hotelCheckOut = hotelCheckOut;
     }
 

@@ -3,8 +3,6 @@ package com.managehotel.Entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Time;
-import java.time.LocalTime;
 
 @Entity
 @Table
@@ -28,15 +26,15 @@ public class Hotels {
     private String hotel_email;
     private String hotel_description;
     private Double star_rating;
-    private LocalTime check_in_time;
-    private LocalTime check_out_time;
+    private String check_in_time;
+    private String check_out_time;
     private Integer approve_status;
     private Integer owner_id;
 
     public Hotels() {
     }
 
-    public Hotels(Integer hotel_id, String hotel_name, String hotel_address, String hotel_city, String hotel_country, String hotel_contact_number, String hotel_email, String hotel_description, Double star_rating, LocalTime check_in_time, LocalTime check_out_time, Integer approve_status, Integer owner_id) {
+    public Hotels(Integer hotel_id, String hotel_name, String hotel_address, String hotel_city, String hotel_country, String hotel_contact_number, String hotel_email, String hotel_description, Double star_rating, String check_in_time, String check_out_time, Integer approve_status, Integer owner_id) {
         this.hotel_id = hotel_id;
         this.hotel_name = hotel_name;
         this.hotel_address = hotel_address;
@@ -124,19 +122,19 @@ public class Hotels {
         this.star_rating = star_rating;
     }
 
-    public LocalTime getCheck_in_time() {
+    public String getCheck_in_time() {
         return check_in_time;
     }
 
-    public void setCheck_in_time(LocalTime check_in_time) {
+    public void setCheck_in_time(String check_in_time) {
         this.check_in_time = check_in_time;
     }
 
-    public LocalTime getCheck_out_time() {
+    public String getCheck_out_time() {
         return check_out_time;
     }
 
-    public void setCheck_out_time(LocalTime check_out_time) {
+    public void setCheck_out_time(String check_out_time) {
         this.check_out_time = check_out_time;
     }
 
