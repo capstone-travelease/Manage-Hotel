@@ -1,6 +1,8 @@
 package com.managehotel.Controller;
 
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.managehotel.DTO.*;
 import com.managehotel.Service.HotelService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -58,8 +60,8 @@ public class HotelController {
     }
 
     @PutMapping("/hotels/image/{id}")
-    public ResponeDTO updateHotelImage(@RequestParam("image") List<MultipartFile> image,@PathVariable("id") Integer hotelId){
-        Integer isCheckError = hotelService.updateHotelImage(image,hotelId);
+    public ResponeDTO updateHotelImage(@RequestParam("image") List<MultipartFile> image,@PathVariable("id") Integer hotelId,@RequestPart("data") List<String> dataImage){
+        Integer isCheckError = hotelService.updateHotelImage(image,hotelId,dataImage);
         if(isCheckError == HttpServletResponse.SC_INTERNAL_SERVER_ERROR){
             return new ResponeDTO(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null, errorMessage);
         }

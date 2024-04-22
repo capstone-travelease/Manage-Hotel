@@ -51,14 +51,18 @@ public class HotelService {
           return hotelData;
     }
 
-    public Integer updateHotelImage(List<MultipartFile> image, Integer hotelId){
+    public Integer updateHotelImage(List<MultipartFile> image, Integer hotelId,List<String> dataImage){
         try {
             Integer attachmentId = hotelRepository.removeHotelAttacment(hotelId);
             hotelRepository.removeAttacment(attachmentId);
             uploadImageToFile(image,hotelId);
+            for (String i : dataImage) {
+                Integer oldAttacmentId = hotelRepository.insertImage(new Date(),i);
+                insertImage(oldAttacmentId,hotelId);
+            }
             return 200;
         }catch (Exception ex){
-
+            System.err.println(ex);
             return 500;
         }
 
@@ -156,7 +160,6 @@ public class HotelService {
                 Integer attachmentId = hotelRepository.insertImage(new Date(),imageUrl);
                 boolean isCheckErrImage = insertImage(attachmentId,hotelId);
             }
-            // the path of folder has existed in local
             return true;
         }catch (Exception ex){
             System.err.println(ex);
