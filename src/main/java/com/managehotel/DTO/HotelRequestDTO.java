@@ -27,7 +27,7 @@ public class HotelRequestDTO {
 
      @NotBlank
      @NotNull
-     private String hotelCounty;
+     private String hotelCountry;
 
      @NotBlank
      @NotBlank

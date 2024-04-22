@@ -107,7 +107,7 @@ public class HotelService {
                     hotels.getHotelName(),
                     hotels.getHotelAddress(),
                     hotels.getHotelCity(),
-                    hotels.getHotelCounty(),
+                    hotels.getHotelCountry(),
                     hotels.getHotelContactNumber(),
                     hotels.getHotelEmail(),
                     hotels.getHotelDescription(),
