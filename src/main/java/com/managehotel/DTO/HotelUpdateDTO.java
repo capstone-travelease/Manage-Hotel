@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.List;
 
 

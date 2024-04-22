@@ -69,7 +69,6 @@ public class HotelService {
     }
 
     public Integer updateHotel(HotelUpdateDTO hotel, Integer hotelId){
-        System.out.println(hotelId);
         try {
             hotelRepository.updateHotel(
                     hotelId,
@@ -90,7 +89,7 @@ public class HotelService {
             }
             return 200;
         }catch (Exception ex){
-            System.out.println(ex);
+            System.err.println(ex);
             return 500;
         }
     }

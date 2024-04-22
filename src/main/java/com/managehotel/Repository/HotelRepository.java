@@ -54,7 +54,7 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM public.hotel_facilities hf\n" +
-            "\tWHERE hf.id_hotel = ?1;",nativeQuery = true)
+            "\tWHERE hf.id_hotel = ?1",nativeQuery = true)
     void removeFacilities(Integer hotelId);
 
 
@@ -77,7 +77,7 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
     @Modifying
     @Query(value = "INSERT INTO public.hotel_facilities(\n" +
             "\tid_hotel, id_facility)\n" +
-            "\tVALUES (?1, ?2);",nativeQuery = true)
+            "\tVALUES (?1, ?2)",nativeQuery = true)
     void insertHotelFacilities(Integer hotelId, Integer facilityId);
 
     @Query(value = "INSERT INTO public.attachment(\n" +
