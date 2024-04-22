@@ -29,7 +29,7 @@ public class HotelUpdateDTO {
 
     @NotBlank
     @NotNull
-    private String hotelCounty;
+    private String hotelCountry;
 
     @NotBlank
     @NotBlank

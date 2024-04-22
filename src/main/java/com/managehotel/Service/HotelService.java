@@ -76,7 +76,7 @@ public class HotelService {
                     hotel.getHotelName(),
                     hotel.getHotelAddress(),
                     hotel.getHotelCity(),
-                    hotel.getHotelCounty(),
+                    hotel.getHotelCountry(),
                     hotel.getHotelContactNumber(),
                     hotel.getHotelEmail(),
                     hotel.getHotelDescription(),
