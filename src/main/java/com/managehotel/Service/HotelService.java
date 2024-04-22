@@ -57,8 +57,7 @@ public class HotelService {
             hotelRepository.removeAttacment(attachmentId);
             uploadImageToFile(image,hotelId);
             for (String i : dataImage) {
-                Integer oldAttacmentId = hotelRepository.insertImage(new Date(),i);
-                insertImage(oldAttacmentId,hotelId);
+                insertImage(hotelRepository.insertImage(new Date(),i),hotelId);
             }
             return 200;
         }catch (Exception ex){

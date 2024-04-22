@@ -60,9 +60,10 @@ public class HotelController {
     }
 
     @PutMapping("/hotels/image/{id}")
-    public ResponeDTO updateHotelImage(@RequestParam(value = "image",required = false) List<MultipartFile> image,@PathVariable("id") Integer hotelId,@RequestPart("data") List<String> dataImage){
+    public ResponeDTO updateHotelImage(@RequestParam(value = "image",required = false) List<MultipartFile> image,@PathVariable("id") Integer hotelId,@RequestPart("data") List<String> dataImage,HttpServletResponse response){
         Integer isCheckError = hotelService.updateHotelImage(image,hotelId,dataImage);
         if(isCheckError == HttpServletResponse.SC_INTERNAL_SERVER_ERROR){
+
             return new ResponeDTO(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null, errorMessage);
         }
         return new ResponeDTO(HttpServletResponse.SC_OK,null,"OK");
