@@ -87,7 +87,7 @@ public interface HotelRepository extends JpaRepository<Hotels, Integer> {
 
     @Query(value = "DELETE FROM public.hotel_attachment\n" +
             "\tWHERE hotel_id = ?1 returning attachment_id",nativeQuery = true)
-    Integer removeHotelAttacment(Integer hotelId);
+    List<Integer> removeHotelAttacment(Integer hotelId);
 
     @Transactional
     @Modifying

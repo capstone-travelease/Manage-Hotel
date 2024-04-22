@@ -53,11 +53,14 @@ public class HotelService {
 
     public Integer updateHotelImage(List<MultipartFile> image, Integer hotelId,List<String> dataImage){
         try {
-            Integer attachmentId = hotelRepository.removeHotelAttacment(hotelId);
-            hotelRepository.removeAttacment(attachmentId);
+            List<Integer> attachmentId = hotelRepository.removeHotelAttacment(hotelId);
+            for (Integer i: attachmentId) {
+                hotelRepository.removeAttacment(i);
+            }
             uploadImageToFile(image,hotelId);
             for (String i : dataImage) {
-                insertImage(hotelRepository.insertImage(new Date(),i),hotelId);
+                Integer oldAttacmentId = hotelRepository.insertImage(new Date(),i);
+                insertImage(oldAttacmentId,hotelId);
             }
             return 200;
         }catch (Exception ex){
